@@ -353,6 +353,7 @@ public:
     cl_int clErr;
     cl_uint numPlatforms;
     clErr = clGetPlatformIDs(0, NULL, &numPlatforms);
+    cout << "clErr=" << clErr << endl;
 
     if( 0 < numPlatforms )
     {

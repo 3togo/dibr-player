@@ -265,11 +265,13 @@ int main(int argc,char *argv[])
   o.load_demo(&program, &kernel[0]);
 
   cout << "#Decode\tResize\tCrop\tFilter\tDIBR\tShow" << endl;
-
+int jcount=0;
   for(;;)
   {
+    
+    printf("\ncount=%d\n",jcount++);
     // gettimeofday(&now, NULL);
-
+    cout << "input size...="<< input.cols * input.rows  << "\n";
     memset(pixelMutex, 0, input.cols * input.rows * sizeof(int));
     isHole.setTo(cv::Scalar(0));
     depth_out.setTo(cv::Scalar(0, 0, 0));
@@ -277,9 +279,12 @@ int main(int argc,char *argv[])
 
     if (must_update)
     {
+        puts("88888");
       if(is_input_video && !paused)
       {
+puts("0000");
 #if YUV_INPUT
+        puts("aaaaa");
         ret = YUV_read(&cap);
         if (ret == YUV_EOF)
         {
@@ -311,14 +316,16 @@ int main(int argc,char *argv[])
         Mat tmp_bgr_depth (bgr_depth);
         Mat tmp_bgr_depth_resized;
         tmp_bgr_depth_resized.create(depth.cols, depth.rows, CV_8UC(3));
-
+        cout << "input size...="<< input.size() << "\t";
         resize(tmp_bgr, color, color.size(), 0, 0, CV_INTER_CUBIC);
         resize(tmp_bgr_depth, tmp_bgr_depth_resized, depth.size(), 0, 0, CV_INTER_CUBIC);
         cvtColor(tmp_bgr_depth_resized, depth, CV_RGB2GRAY);
 
         // resize(image, tmp_image, cvSize(width, height), 0, 0, CV_INTER_CUBIC);
 #else
+        puts("aaxxxxx");
         inputVideo >> image;
+        puts("xxxxxxxssss");
 #endif
       }
 
@@ -328,7 +335,13 @@ int main(int argc,char *argv[])
 //      cout << (float)diff << "\t";
 
 //      gettimeofday(&now, NULL);
+    puts("77777");
+    printf("(%d,%d)\n",input.size().width, input.size().height);
+    printf("len of image=%ld\n ",sizeof(image));
+    puts("22222");
+      //cout << "input size="<< input.size().width << "\t";
       resize(image, input, input.size(), 0, 0, INTER_NEAREST);
+      //resize(inputVideo, input, input.size(), 0, 0, INTER_NEAREST);
 //      gettimeofday(&end, NULL);
 //      diff = timeval_subtract(&result, &end, &now);
 //      cout << (float)diff << "\t";

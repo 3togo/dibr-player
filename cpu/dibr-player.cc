@@ -55,7 +55,8 @@
 #ifdef USE_LIBVLC
 #include <vlc/vlc.h>
 #endif
-
+#include <iostream>
+using namespace std;
 #include "sdl_aux.h"
 
 #define PI 3.141592653589793
@@ -575,7 +576,7 @@ bool init(user_params &p, vlc_sdl_ctx &ctx)
 
   /* ctx initialization */
   ctx.mutex = SDL_CreateMutex();
-
+    
   sdl_get_pixel_mask(rmask, gmask, bmask, amask);
   ctx.surf  = SDL_CreateRGBSurface( SDL_SWSURFACE,
                                     p.screen_width,
@@ -585,7 +586,7 @@ bool init(user_params &p, vlc_sdl_ctx &ctx)
                                     gmask,
                                     bmask,
                                     0 );
-
+   //puts("just doing SDL_CreateRGBSurface");
 #ifdef USE_LIBVLC
   /* Initialize libVLC    */
   char const *vlc_argv[] =
@@ -594,12 +595,17 @@ bool init(user_params &p, vlc_sdl_ctx &ctx)
     "--no-xlib"
   };
   int vlc_argc = sizeof(vlc_argv) / sizeof(*vlc_argv);
-  ctx.libvlc = libvlc_new(vlc_argc, vlc_argv);
-  printf ("%s\n", p.file_path);
+  //ctx.libvlc = libvlc_new(vlc_argc, vlc_argv);
+  ctx.libvlc = libvlc_new(0, NULL);
+  if (ctx.libvlc ==NULL) {
+    puts("Have you installed vlc player?");
+    return false;
+    }
+  //cout << "eye_sep:" << ctx.libvlc << "|" << vlc_argc << "|" << vlc_argv[0]<< "|" << vlc_argv[1]  << endl;
+  printf ("the video file is : %s\n", p.file_path);
   ctx.m = libvlc_media_new_path(ctx.libvlc, p.file_path);
   ctx.mp = libvlc_media_player_new_from_media(ctx.m);
   libvlc_media_release(ctx.m);
-
   libvlc_video_set_callbacks(ctx.mp, lock, unlock, display, &ctx);
   libvlc_video_set_format( ctx.mp,
                            "RGBA",
@@ -607,7 +613,7 @@ bool init(user_params &p, vlc_sdl_ctx &ctx)
                            p.screen_height,
                            p.screen_width*4 );
 #endif
-
+  puts("done init");
   return true;
 }
 
