@@ -533,7 +533,8 @@ public:
     CHECK_OPENCL_ERROR(status, "clCreateContext failed");
 
     // create queue for devices
-    queue = clCreateCommandQueue(context,devices[0],0,&status);
+    //queue = clCreateCommandQueue(context,devices[0],0,&status);
+    queue = clCreateCommandQueueWithProperties(context,devices[0],0,&status);
     CHECK_OPENCL_ERROR(status, "clCreateCommandQueue failed");
 
     return SUCCESS;
