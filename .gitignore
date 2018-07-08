@@ -1,2 +1,3 @@
 *.o
 dibr-player
+build/*
