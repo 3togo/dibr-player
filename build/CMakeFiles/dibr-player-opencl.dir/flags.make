@@ -6,5 +6,5 @@ CXX_FLAGS = -g
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/jc/git/dibr-player/opencl -isystem /usr/include/opencv 
+CXX_INCLUDES = -I/home/eli/git/others/dibr-player/opencl -isystem /usr/include/opencv 
 

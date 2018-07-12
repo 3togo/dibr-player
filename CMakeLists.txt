@@ -12,8 +12,23 @@ find_package (LibMagic REQUIRED)
 find_package (LIBVLC REQUIRED)
 find_package (SDL REQUIRED)
 
+add_executable (dibr-player-test
+                cpu/main.cc
+                cpu/filters.cc
+                cpu/sdl_aux.cc
+                cpu/warping.cc )
+
+target_link_libraries (dibr-player-test
+                       ${Boost_LIBRARIES}
+                       SDL
+                       GL
+                       vlc )
+
+
 add_executable (dibr-player-cpu 
-                cpu/dibr-player.cc)
+                cpu/dibr-player.cc
+                cpu/sdl_aux.cc
+                cpu/warping.cc )
 
 target_link_libraries (dibr-player-cpu
                        ${Boost_LIBRARIES}

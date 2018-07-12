@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/jc/git/dibr-player
+CMAKE_SOURCE_DIR = /home/eli/git/others/dibr-player
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/jc/git/dibr-player/build
+CMAKE_BINARY_DIR = /home/eli/git/others/dibr-player/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/dibr-player-cpu.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/dibr-player-cpu.dir/flags.make
 
 CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.o: CMakeFiles/dibr-player-cpu.dir/flags.make
 CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.o: ../cpu/dibr-player.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jc/git/dibr-player/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.o -c /home/jc/git/dibr-player/cpu/dibr-player.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eli/git/others/dibr-player/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.o -c /home/eli/git/others/dibr-player/cpu/dibr-player.cc
 
 CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jc/git/dibr-player/cpu/dibr-player.cc > CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/eli/git/others/dibr-player/cpu/dibr-player.cc > CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.i
 
 CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jc/git/dibr-player/cpu/dibr-player.cc -o CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/eli/git/others/dibr-player/cpu/dibr-player.cc -o CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.s
 
 CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.o.requires:
 
@@ -81,18 +81,70 @@ CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.o.provides: CMakeFiles/dibr-pl
 CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.o.provides.build: CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.o
 
 
+CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.o: CMakeFiles/dibr-player-cpu.dir/flags.make
+CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.o: ../cpu/sdl_aux.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eli/git/others/dibr-player/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.o -c /home/eli/git/others/dibr-player/cpu/sdl_aux.cc
+
+CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/eli/git/others/dibr-player/cpu/sdl_aux.cc > CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.i
+
+CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/eli/git/others/dibr-player/cpu/sdl_aux.cc -o CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.s
+
+CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.o.requires:
+
+.PHONY : CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.o.requires
+
+CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.o.provides: CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.o.requires
+	$(MAKE) -f CMakeFiles/dibr-player-cpu.dir/build.make CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.o.provides.build
+.PHONY : CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.o.provides
+
+CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.o.provides.build: CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.o
+
+
+CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.o: CMakeFiles/dibr-player-cpu.dir/flags.make
+CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.o: ../cpu/warping.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eli/git/others/dibr-player/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.o -c /home/eli/git/others/dibr-player/cpu/warping.cc
+
+CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/eli/git/others/dibr-player/cpu/warping.cc > CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.i
+
+CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/eli/git/others/dibr-player/cpu/warping.cc -o CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.s
+
+CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.o.requires:
+
+.PHONY : CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.o.requires
+
+CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.o.provides: CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.o.requires
+	$(MAKE) -f CMakeFiles/dibr-player-cpu.dir/build.make CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.o.provides.build
+.PHONY : CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.o.provides
+
+CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.o.provides.build: CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.o
+
+
 # Object files for target dibr-player-cpu
 dibr__player__cpu_OBJECTS = \
-"CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.o"
+"CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.o" \
+"CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.o" \
+"CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.o"
 
 # External object files for target dibr-player-cpu
 dibr__player__cpu_EXTERNAL_OBJECTS =
 
 dibr-player-cpu: CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.o
+dibr-player-cpu: CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.o
+dibr-player-cpu: CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.o
 dibr-player-cpu: CMakeFiles/dibr-player-cpu.dir/build.make
 dibr-player-cpu: /usr/lib/x86_64-linux-gnu/libboost_program_options.a
 dibr-player-cpu: CMakeFiles/dibr-player-cpu.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jc/git/dibr-player/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable dibr-player-cpu"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/eli/git/others/dibr-player/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable dibr-player-cpu"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/dibr-player-cpu.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -101,6 +153,8 @@ CMakeFiles/dibr-player-cpu.dir/build: dibr-player-cpu
 .PHONY : CMakeFiles/dibr-player-cpu.dir/build
 
 CMakeFiles/dibr-player-cpu.dir/requires: CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.o.requires
+CMakeFiles/dibr-player-cpu.dir/requires: CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.o.requires
+CMakeFiles/dibr-player-cpu.dir/requires: CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.o.requires
 
 .PHONY : CMakeFiles/dibr-player-cpu.dir/requires
 
@@ -109,6 +163,6 @@ CMakeFiles/dibr-player-cpu.dir/clean:
 .PHONY : CMakeFiles/dibr-player-cpu.dir/clean
 
 CMakeFiles/dibr-player-cpu.dir/depend:
-	cd /home/jc/git/dibr-player/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/jc/git/dibr-player /home/jc/git/dibr-player /home/jc/git/dibr-player/build /home/jc/git/dibr-player/build /home/jc/git/dibr-player/build/CMakeFiles/dibr-player-cpu.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/eli/git/others/dibr-player/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/eli/git/others/dibr-player /home/eli/git/others/dibr-player /home/eli/git/others/dibr-player/build /home/eli/git/others/dibr-player/build /home/eli/git/others/dibr-player/build/CMakeFiles/dibr-player-cpu.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/dibr-player-cpu.dir/depend
 

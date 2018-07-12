@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.o  -o dibr-player-cpu /usr/lib/x86_64-linux-gnu/libboost_program_options.a -lSDL -lGL -lvlc 
+/usr/bin/c++  -g   CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.o CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.o CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.o  -o dibr-player-cpu /usr/lib/x86_64-linux-gnu/libboost_program_options.a -lSDL -lGL -lvlc 

@@ -48,24 +48,13 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/jc/git/dibr-player
+CMAKE_SOURCE_DIR = /home/eli/git/others/dibr-player
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/jc/git/dibr-player/build
+CMAKE_BINARY_DIR = /home/eli/git/others/dibr-player/build
 
 #=============================================================================
 # Targets provided globally by CMake.
-
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
 
 # Special rule for the target edit_cache
 edit_cache:
@@ -78,11 +67,22 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
+
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jc/git/dibr-player/build/CMakeFiles /home/jc/git/dibr-player/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/eli/git/others/dibr-player/build/CMakeFiles /home/eli/git/others/dibr-player/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jc/git/dibr-player/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/eli/git/others/dibr-player/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -111,19 +111,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named dibr-player-cpu
-
-# Build rule for target.
-dibr-player-cpu: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 dibr-player-cpu
-.PHONY : dibr-player-cpu
-
-# fast build rule for target.
-dibr-player-cpu/fast:
-	$(MAKE) -f CMakeFiles/dibr-player-cpu.dir/build.make CMakeFiles/dibr-player-cpu.dir/build
-.PHONY : dibr-player-cpu/fast
-
-#=============================================================================
 # Target rules for targets named dibr-player-opencl
 
 # Build rule for target.
@@ -135,6 +122,32 @@ dibr-player-opencl: cmake_check_build_system
 dibr-player-opencl/fast:
 	$(MAKE) -f CMakeFiles/dibr-player-opencl.dir/build.make CMakeFiles/dibr-player-opencl.dir/build
 .PHONY : dibr-player-opencl/fast
+
+#=============================================================================
+# Target rules for targets named dibr-player-test
+
+# Build rule for target.
+dibr-player-test: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 dibr-player-test
+.PHONY : dibr-player-test
+
+# fast build rule for target.
+dibr-player-test/fast:
+	$(MAKE) -f CMakeFiles/dibr-player-test.dir/build.make CMakeFiles/dibr-player-test.dir/build
+.PHONY : dibr-player-test/fast
+
+#=============================================================================
+# Target rules for targets named dibr-player-cpu
+
+# Build rule for target.
+dibr-player-cpu: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 dibr-player-cpu
+.PHONY : dibr-player-cpu
+
+# fast build rule for target.
+dibr-player-cpu/fast:
+	$(MAKE) -f CMakeFiles/dibr-player-cpu.dir/build.make CMakeFiles/dibr-player-cpu.dir/build
+.PHONY : dibr-player-cpu/fast
 
 cpu/dibr-player.o: cpu/dibr-player.cc.o
 
@@ -162,6 +175,120 @@ cpu/dibr-player.s: cpu/dibr-player.cc.s
 cpu/dibr-player.cc.s:
 	$(MAKE) -f CMakeFiles/dibr-player-cpu.dir/build.make CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.s
 .PHONY : cpu/dibr-player.cc.s
+
+cpu/filters.o: cpu/filters.cc.o
+
+.PHONY : cpu/filters.o
+
+# target to build an object file
+cpu/filters.cc.o:
+	$(MAKE) -f CMakeFiles/dibr-player-test.dir/build.make CMakeFiles/dibr-player-test.dir/cpu/filters.cc.o
+.PHONY : cpu/filters.cc.o
+
+cpu/filters.i: cpu/filters.cc.i
+
+.PHONY : cpu/filters.i
+
+# target to preprocess a source file
+cpu/filters.cc.i:
+	$(MAKE) -f CMakeFiles/dibr-player-test.dir/build.make CMakeFiles/dibr-player-test.dir/cpu/filters.cc.i
+.PHONY : cpu/filters.cc.i
+
+cpu/filters.s: cpu/filters.cc.s
+
+.PHONY : cpu/filters.s
+
+# target to generate assembly for a file
+cpu/filters.cc.s:
+	$(MAKE) -f CMakeFiles/dibr-player-test.dir/build.make CMakeFiles/dibr-player-test.dir/cpu/filters.cc.s
+.PHONY : cpu/filters.cc.s
+
+cpu/main.o: cpu/main.cc.o
+
+.PHONY : cpu/main.o
+
+# target to build an object file
+cpu/main.cc.o:
+	$(MAKE) -f CMakeFiles/dibr-player-test.dir/build.make CMakeFiles/dibr-player-test.dir/cpu/main.cc.o
+.PHONY : cpu/main.cc.o
+
+cpu/main.i: cpu/main.cc.i
+
+.PHONY : cpu/main.i
+
+# target to preprocess a source file
+cpu/main.cc.i:
+	$(MAKE) -f CMakeFiles/dibr-player-test.dir/build.make CMakeFiles/dibr-player-test.dir/cpu/main.cc.i
+.PHONY : cpu/main.cc.i
+
+cpu/main.s: cpu/main.cc.s
+
+.PHONY : cpu/main.s
+
+# target to generate assembly for a file
+cpu/main.cc.s:
+	$(MAKE) -f CMakeFiles/dibr-player-test.dir/build.make CMakeFiles/dibr-player-test.dir/cpu/main.cc.s
+.PHONY : cpu/main.cc.s
+
+cpu/sdl_aux.o: cpu/sdl_aux.cc.o
+
+.PHONY : cpu/sdl_aux.o
+
+# target to build an object file
+cpu/sdl_aux.cc.o:
+	$(MAKE) -f CMakeFiles/dibr-player-test.dir/build.make CMakeFiles/dibr-player-test.dir/cpu/sdl_aux.cc.o
+	$(MAKE) -f CMakeFiles/dibr-player-cpu.dir/build.make CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.o
+.PHONY : cpu/sdl_aux.cc.o
+
+cpu/sdl_aux.i: cpu/sdl_aux.cc.i
+
+.PHONY : cpu/sdl_aux.i
+
+# target to preprocess a source file
+cpu/sdl_aux.cc.i:
+	$(MAKE) -f CMakeFiles/dibr-player-test.dir/build.make CMakeFiles/dibr-player-test.dir/cpu/sdl_aux.cc.i
+	$(MAKE) -f CMakeFiles/dibr-player-cpu.dir/build.make CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.i
+.PHONY : cpu/sdl_aux.cc.i
+
+cpu/sdl_aux.s: cpu/sdl_aux.cc.s
+
+.PHONY : cpu/sdl_aux.s
+
+# target to generate assembly for a file
+cpu/sdl_aux.cc.s:
+	$(MAKE) -f CMakeFiles/dibr-player-test.dir/build.make CMakeFiles/dibr-player-test.dir/cpu/sdl_aux.cc.s
+	$(MAKE) -f CMakeFiles/dibr-player-cpu.dir/build.make CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.s
+.PHONY : cpu/sdl_aux.cc.s
+
+cpu/warping.o: cpu/warping.cc.o
+
+.PHONY : cpu/warping.o
+
+# target to build an object file
+cpu/warping.cc.o:
+	$(MAKE) -f CMakeFiles/dibr-player-test.dir/build.make CMakeFiles/dibr-player-test.dir/cpu/warping.cc.o
+	$(MAKE) -f CMakeFiles/dibr-player-cpu.dir/build.make CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.o
+.PHONY : cpu/warping.cc.o
+
+cpu/warping.i: cpu/warping.cc.i
+
+.PHONY : cpu/warping.i
+
+# target to preprocess a source file
+cpu/warping.cc.i:
+	$(MAKE) -f CMakeFiles/dibr-player-test.dir/build.make CMakeFiles/dibr-player-test.dir/cpu/warping.cc.i
+	$(MAKE) -f CMakeFiles/dibr-player-cpu.dir/build.make CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.i
+.PHONY : cpu/warping.cc.i
+
+cpu/warping.s: cpu/warping.cc.s
+
+.PHONY : cpu/warping.s
+
+# target to generate assembly for a file
+cpu/warping.cc.s:
+	$(MAKE) -f CMakeFiles/dibr-player-test.dir/build.make CMakeFiles/dibr-player-test.dir/cpu/warping.cc.s
+	$(MAKE) -f CMakeFiles/dibr-player-cpu.dir/build.make CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.s
+.PHONY : cpu/warping.cc.s
 
 opencl/main.o: opencl/main.cpp.o
 
@@ -223,13 +350,26 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... dibr-player-cpu"
 	@echo "... dibr-player-opencl"
+	@echo "... rebuild_cache"
+	@echo "... dibr-player-test"
+	@echo "... dibr-player-cpu"
 	@echo "... cpu/dibr-player.o"
 	@echo "... cpu/dibr-player.i"
 	@echo "... cpu/dibr-player.s"
+	@echo "... cpu/filters.o"
+	@echo "... cpu/filters.i"
+	@echo "... cpu/filters.s"
+	@echo "... cpu/main.o"
+	@echo "... cpu/main.i"
+	@echo "... cpu/main.s"
+	@echo "... cpu/sdl_aux.o"
+	@echo "... cpu/sdl_aux.i"
+	@echo "... cpu/sdl_aux.s"
+	@echo "... cpu/warping.o"
+	@echo "... cpu/warping.i"
+	@echo "... cpu/warping.s"
 	@echo "... opencl/main.o"
 	@echo "... opencl/main.i"
 	@echo "... opencl/main.s"

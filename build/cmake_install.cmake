@@ -1,4 +1,4 @@
-# Install script for directory: /home/jc/git/dibr-player
+# Install script for directory: /home/eli/git/others/dibr-player
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/jc/git/dibr-player/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/eli/git/others/dibr-player/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/jc/git/dibr-player
+CMAKE_SOURCE_DIR = /home/eli/git/others/dibr-player
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/jc/git/dibr-player/build
+CMAKE_BINARY_DIR = /home/eli/git/others/dibr-player/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/dibr-player-opencl.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/dibr-player-opencl.dir/flags.make
 
 CMakeFiles/dibr-player-opencl.dir/opencl/yuv.cpp.o: CMakeFiles/dibr-player-opencl.dir/flags.make
 CMakeFiles/dibr-player-opencl.dir/opencl/yuv.cpp.o: ../opencl/yuv.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jc/git/dibr-player/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/dibr-player-opencl.dir/opencl/yuv.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dibr-player-opencl.dir/opencl/yuv.cpp.o -c /home/jc/git/dibr-player/opencl/yuv.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eli/git/others/dibr-player/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/dibr-player-opencl.dir/opencl/yuv.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dibr-player-opencl.dir/opencl/yuv.cpp.o -c /home/eli/git/others/dibr-player/opencl/yuv.cpp
 
 CMakeFiles/dibr-player-opencl.dir/opencl/yuv.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dibr-player-opencl.dir/opencl/yuv.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jc/git/dibr-player/opencl/yuv.cpp > CMakeFiles/dibr-player-opencl.dir/opencl/yuv.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/eli/git/others/dibr-player/opencl/yuv.cpp > CMakeFiles/dibr-player-opencl.dir/opencl/yuv.cpp.i
 
 CMakeFiles/dibr-player-opencl.dir/opencl/yuv.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dibr-player-opencl.dir/opencl/yuv.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jc/git/dibr-player/opencl/yuv.cpp -o CMakeFiles/dibr-player-opencl.dir/opencl/yuv.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/eli/git/others/dibr-player/opencl/yuv.cpp -o CMakeFiles/dibr-player-opencl.dir/opencl/yuv.cpp.s
 
 CMakeFiles/dibr-player-opencl.dir/opencl/yuv.cpp.o.requires:
 
@@ -83,16 +83,16 @@ CMakeFiles/dibr-player-opencl.dir/opencl/yuv.cpp.o.provides.build: CMakeFiles/di
 
 CMakeFiles/dibr-player-opencl.dir/opencl/main.cpp.o: CMakeFiles/dibr-player-opencl.dir/flags.make
 CMakeFiles/dibr-player-opencl.dir/opencl/main.cpp.o: ../opencl/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jc/git/dibr-player/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/dibr-player-opencl.dir/opencl/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dibr-player-opencl.dir/opencl/main.cpp.o -c /home/jc/git/dibr-player/opencl/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eli/git/others/dibr-player/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/dibr-player-opencl.dir/opencl/main.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dibr-player-opencl.dir/opencl/main.cpp.o -c /home/eli/git/others/dibr-player/opencl/main.cpp
 
 CMakeFiles/dibr-player-opencl.dir/opencl/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dibr-player-opencl.dir/opencl/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jc/git/dibr-player/opencl/main.cpp > CMakeFiles/dibr-player-opencl.dir/opencl/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/eli/git/others/dibr-player/opencl/main.cpp > CMakeFiles/dibr-player-opencl.dir/opencl/main.cpp.i
 
 CMakeFiles/dibr-player-opencl.dir/opencl/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dibr-player-opencl.dir/opencl/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jc/git/dibr-player/opencl/main.cpp -o CMakeFiles/dibr-player-opencl.dir/opencl/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/eli/git/others/dibr-player/opencl/main.cpp -o CMakeFiles/dibr-player-opencl.dir/opencl/main.cpp.s
 
 CMakeFiles/dibr-player-opencl.dir/opencl/main.cpp.o.requires:
 
@@ -160,7 +160,7 @@ dibr-player-opencl: /usr/lib/x86_64-linux-gnu/libopencv_imgcodecs.so.3.2.0
 dibr-player-opencl: /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so.3.2.0
 dibr-player-opencl: /usr/lib/x86_64-linux-gnu/libopencv_core.so.3.2.0
 dibr-player-opencl: CMakeFiles/dibr-player-opencl.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jc/git/dibr-player/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable dibr-player-opencl"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/eli/git/others/dibr-player/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable dibr-player-opencl"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/dibr-player-opencl.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -178,6 +178,6 @@ CMakeFiles/dibr-player-opencl.dir/clean:
 .PHONY : CMakeFiles/dibr-player-opencl.dir/clean
 
 CMakeFiles/dibr-player-opencl.dir/depend:
-	cd /home/jc/git/dibr-player/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/jc/git/dibr-player /home/jc/git/dibr-player /home/jc/git/dibr-player/build /home/jc/git/dibr-player/build /home/jc/git/dibr-player/build/CMakeFiles/dibr-player-opencl.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/eli/git/others/dibr-player/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/eli/git/others/dibr-player /home/eli/git/others/dibr-player /home/eli/git/others/dibr-player/build /home/eli/git/others/dibr-player/build /home/eli/git/others/dibr-player/build/CMakeFiles/dibr-player-opencl.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/dibr-player-opencl.dir/depend
 

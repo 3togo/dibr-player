@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/jc/git/dibr-player/opencl/dibr_cpu.h
+/home/eli/git/others/dibr-player/opencl/dibr_cpu.h
 opencv2/core/core.hpp
 -
 opencv2/highgui/highgui.hpp
@@ -14,27 +14,27 @@ opencv2/highgui/highgui.hpp
 opencv2/imgproc/imgproc.hpp
 -
 opencv2/highgui/highgui.hpp
-/home/jc/git/dibr-player/opencl/opencv2/highgui/highgui.hpp
+/home/eli/git/others/dibr-player/opencl/opencv2/highgui/highgui.hpp
 opencv2/core/core.hpp
-/home/jc/git/dibr-player/opencl/opencv2/core/core.hpp
+/home/eli/git/others/dibr-player/opencl/opencv2/core/core.hpp
 opencv2/imgproc/imgproc.hpp
-/home/jc/git/dibr-player/opencl/opencv2/imgproc/imgproc.hpp
+/home/eli/git/others/dibr-player/opencl/opencv2/imgproc/imgproc.hpp
 opencv2/imgproc/imgproc_c.h
-/home/jc/git/dibr-player/opencl/opencv2/imgproc/imgproc_c.h
+/home/eli/git/others/dibr-player/opencl/opencv2/imgproc/imgproc_c.h
 
-/home/jc/git/dibr-player/opencl/dibr_ocl.h
+/home/eli/git/others/dibr-player/opencl/dibr_ocl.h
 stdio.h
 -
 string.h
 -
 
-/home/jc/git/dibr-player/opencl/main.cpp
+/home/eli/git/others/dibr-player/opencl/main.cpp
 iostream
 -
 cstdlib
 -
 string.h
-/home/jc/git/dibr-player/opencl/string.h
+/home/eli/git/others/dibr-player/opencl/string.h
 stddef.h
 -
 stdio.h
@@ -72,29 +72,29 @@ opencv2/highgui/highgui.hpp
 opencv2/imgproc/imgproc.hpp
 -
 opencv2/highgui/highgui.hpp
-/home/jc/git/dibr-player/opencl/opencv2/highgui/highgui.hpp
+/home/eli/git/others/dibr-player/opencl/opencv2/highgui/highgui.hpp
 opencv2/core/core.hpp
-/home/jc/git/dibr-player/opencl/opencv2/core/core.hpp
+/home/eli/git/others/dibr-player/opencl/opencv2/core/core.hpp
 opencv2/imgproc/imgproc.hpp
-/home/jc/git/dibr-player/opencl/opencv2/imgproc/imgproc.hpp
+/home/eli/git/others/dibr-player/opencl/opencv2/imgproc/imgproc.hpp
 opencv2/imgproc/imgproc_c.h
-/home/jc/git/dibr-player/opencl/opencv2/imgproc/imgproc_c.h
+/home/eli/git/others/dibr-player/opencl/opencv2/imgproc/imgproc_c.h
 boost/program_options.hpp
 -
 CL/opencl.h
 -
 dibr_cpu.h
-/home/jc/git/dibr-player/opencl/dibr_cpu.h
+/home/eli/git/others/dibr-player/opencl/dibr_cpu.h
 dibr_ocl.h
-/home/jc/git/dibr-player/opencl/dibr_ocl.h
+/home/eli/git/others/dibr-player/opencl/dibr_ocl.h
 yuv.h
-/home/jc/git/dibr-player/opencl/yuv.h
+/home/eli/git/others/dibr-player/opencl/yuv.h
 
-/home/jc/git/dibr-player/opencl/yuv.cpp
+/home/eli/git/others/dibr-player/opencl/yuv.cpp
 yuv.h
-/home/jc/git/dibr-player/opencl/yuv.h
+/home/eli/git/others/dibr-player/opencl/yuv.h
 
-/home/jc/git/dibr-player/opencl/yuv.h
+/home/eli/git/others/dibr-player/opencl/yuv.h
 stdio.h
 -
 stdint.h

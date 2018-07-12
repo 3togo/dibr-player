@@ -4,7 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/jc/git/dibr-player/cpu/dibr-player.cc" "/home/jc/git/dibr-player/build/CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.o"
+  "/home/eli/git/others/dibr-player/cpu/dibr-player.cc" "/home/eli/git/others/dibr-player/build/CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.o"
+  "/home/eli/git/others/dibr-player/cpu/sdl_aux.cc" "/home/eli/git/others/dibr-player/build/CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.o"
+  "/home/eli/git/others/dibr-player/cpu/warping.cc" "/home/eli/git/others/dibr-player/build/CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

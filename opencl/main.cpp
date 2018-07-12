@@ -228,7 +228,7 @@ int main(int argc,char *argv[])
   Mat color, depth, depth_filtered, depth_out, isHole, border, dist;
 
   input.create(height, width, CV_8UC(3));
-  //image.create(height, width, CV_8UC(3));
+  image.create(height, width, CV_8UC(3));
   // resize(image, input, input.size(), 0, 0, CV_INTER_CUBIC);
 
   int input_rows = input.rows;
@@ -325,7 +325,7 @@ int main(int argc,char *argv[])
 
         // resize(image, tmp_image, cvSize(width, height), 0, 0, CV_INTER_CUBIC);
 #else
-        //inputVideo >> image;
+        inputVideo >> image;
         cout << "size inputVideo=" << sizeof(inputVideo) << endl;
         cout << "****size image=" << sizeof(image) << endl;
         
