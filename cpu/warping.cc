@@ -2,8 +2,11 @@
 #include <math.h>
 #include <algorithm> //min,max
 #include "sdl_aux.h"
-#include "filters.h"
-
+//#include "filters.h"
+extern SDL_Surface* filter_depth( SDL_Surface* depth_frame,
+                           SDL_Surface* depth_frame_filtered,
+                           int x, int y,
+                           unsigned int width, unsigned int height);
 /****************** 3D Warping related functions ******************************/
 double find_shiftMC3( user_params &p,
                    int depth, int Ny)

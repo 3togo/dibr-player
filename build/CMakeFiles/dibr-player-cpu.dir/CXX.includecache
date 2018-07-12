@@ -30,8 +30,6 @@ iostream
 sdl_aux.h
 /home/eli/git/others/dibr-player/cpu/sdl_aux.h
 
-/home/eli/git/others/dibr-player/cpu/filters.h
-
 /home/eli/git/others/dibr-player/cpu/main.h
 
 /home/eli/git/others/dibr-player/cpu/sdl_aux.cc
@@ -67,6 +65,4 @@ algorithm
 -
 sdl_aux.h
 /home/eli/git/others/dibr-player/cpu/sdl_aux.h
-filters.h
-/home/eli/git/others/dibr-player/cpu/filters.h
 

@@ -6,7 +6,6 @@ CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.o: ../cpu/sdl_aux.h
 
 CMakeFiles/dibr-player-cpu.dir/cpu/sdl_aux.cc.o: ../cpu/sdl_aux.cc
 
-CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.o: ../cpu/filters.h
 CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.o: ../cpu/main.h
 CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.o: ../cpu/sdl_aux.h
 CMakeFiles/dibr-player-cpu.dir/cpu/warping.cc.o: ../cpu/warping.cc
