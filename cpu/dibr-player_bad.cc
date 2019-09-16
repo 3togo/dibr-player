@@ -50,7 +50,7 @@
 #include "SDL/SDL_opengl.h"
 #include "SDL/SDL_image.h"
 
-//#define USE_LIBVLC 1
+#define USE_LIBVLC 1
 
 #ifdef USE_LIBVLC
 #include <vlc/vlc.h>
@@ -61,6 +61,9 @@
 #define PI 3.141592653589793
 #define GAUSSIAN_KERNEL_SIZE 9
 #define RADDEG  57.29577951f
+
+double find_shiftMC3( user_params &p,
+                   int depth, int Ny);
 
 struct user_params
 {
