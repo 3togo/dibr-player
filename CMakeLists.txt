@@ -12,14 +12,15 @@ find_package (LibMagic REQUIRED)
 find_package (LIBVLC REQUIRED)
 find_package (SDL REQUIRED)
 
-add_executable (dibr-player-cpu 
+add_executable (dibr-player-cpu
                 cpu/dibr-player.cc)
 
 target_link_libraries (dibr-player-cpu
                        ${Boost_LIBRARIES}
                        SDL
                        GL
-                       vlc )
+                       vlc
+                       SDL_image )
 
 
 include_directories ( opencl )
@@ -32,7 +33,8 @@ target_link_libraries( dibr-player-opencl
                        general
                        ${Boost_LIBRARIES}
                        ${OpenCL_LIBRARIES}
-                       ${OpenCV_LIBRARIES} )
+                       ${OpenCV_LIBRARIES}
+                        )
 
 # Copy .cl file into build dir
 configure_file(opencl/convolution.cl convolution.cl COPYONLY)

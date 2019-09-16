@@ -1,0 +1,4 @@
+/home/eli/Documents/ffmpeg_release/dibr-player/build/CMakeFiles/rebuild_cache.dir
+/home/eli/Documents/ffmpeg_release/dibr-player/build/CMakeFiles/dibr-player-cpu.dir
+/home/eli/Documents/ffmpeg_release/dibr-player/build/CMakeFiles/edit_cache.dir
+/home/eli/Documents/ffmpeg_release/dibr-player/build/CMakeFiles/dibr-player-opencl.dir

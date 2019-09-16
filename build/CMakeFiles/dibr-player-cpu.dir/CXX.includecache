@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/eli/Documents/ffmpeg_release/dibr-player/cpu/dibr-player.cc
+assert.h
+-
+stdio.h
+-
+stdlib.h
+-
+math.h
+-
+algorithm
+-
+SDL/SDL.h
+/home/eli/Documents/ffmpeg_release/dibr-player/cpu/SDL/SDL.h
+SDL/SDL_opengl.h
+/home/eli/Documents/ffmpeg_release/dibr-player/cpu/SDL/SDL_opengl.h
+SDL/SDL_image.h
+/home/eli/Documents/ffmpeg_release/dibr-player/cpu/SDL/SDL_image.h
+sdl_aux.h
+/home/eli/Documents/ffmpeg_release/dibr-player/cpu/sdl_aux.h
+
+/home/eli/Documents/ffmpeg_release/dibr-player/cpu/sdl_aux.h
+stdio.h
+-
+stdlib.h
+-
+SDL/SDL.h
+/home/eli/Documents/ffmpeg_release/dibr-player/cpu/SDL/SDL.h
+SDL/SDL_opengl.h
+/home/eli/Documents/ffmpeg_release/dibr-player/cpu/SDL/SDL_opengl.h
+SDL/SDL_image.h
+/home/eli/Documents/ffmpeg_release/dibr-player/cpu/SDL/SDL_image.h
+
