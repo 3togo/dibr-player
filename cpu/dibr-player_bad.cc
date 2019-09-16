@@ -50,7 +50,7 @@
 #include "SDL/SDL_opengl.h"
 #include "SDL/SDL_image.h"
 
-#define USE_LIBVLC 1
+//#define USE_LIBVLC 1
 
 #ifdef USE_LIBVLC
 #include <vlc/vlc.h>
@@ -912,19 +912,9 @@ int main(int argc, char* argv[])
       }
     }
 
-    /****** Update Screen And Frame Counts ******/
-    SDL_GL_SwapBuffers();
-    ctx.frame_count++;
-    ctx.frame_current_time = SDL_GetTicks();
-
-    /****** Frame Rate Handle ******/
-    if((ctx.frame_current_time - ctx.frame_start_time) < (1000/60))
-    {
-      ctx.frame_count = 0;
-      SDL_Delay((1000/60) - (ctx.frame_current_time - ctx.frame_start_time));
     }
-  }
 
+  SDL_SaveBMP(stereo_color,"stereo.bmp");
   // Clean up everything
   clean_up(ctx);
 

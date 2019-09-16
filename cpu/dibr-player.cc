@@ -52,10 +52,6 @@
 
 //#define USE_LIBVLC 1
 
-#ifdef USE_LIBVLC
-#include <vlc/vlc.h>
-#endif
-
 #include "sdl_aux.h"
 
 #define PI 3.141592653589793
@@ -353,27 +349,6 @@ bool shift_surface ( user_params &p,
           else
           {
             sdl_put_pixel (left_image, x, y, sdl_get_pixel(left_image, x-1, y));
-/*
-            Uint32 r_sum = 0, g_sum = 0, b_sum = 0;
-            for (int x1 = x-7; x1 <= x-4; x1++)
-            {
-              Uint32 pixel = sdl_get_pixel(left_image, x1, y);
-              Uint8 r, g, b;
-              SDL_GetRGB (pixel, left_image->format, &r, &g, &b);
-              r_sum += r;
-              g_sum += g;
-              b_sum += b;
-            }
-
-            Uint8 r_new, g_new, b_new;
-            r_new = (Uint8)(r_sum / 4);
-            g_new = (Uint8)(g_sum / 4);
-            b_new = (Uint8)(b_sum / 4);
-            Uint32 pixel_new = SDL_MapRGB(left_image->format,
-                                          r_new,
-                                          g_new,
-                                          b_new);
-            sdl_put_pixel (left_image, x, y, pixel_new ); */
           }
         }
       }
@@ -448,27 +423,6 @@ bool shift_surface ( user_params &p,
           else
           {
             sdl_put_pixel (right_image, x, y, sdl_get_pixel(right_image, x+1, y));
-/*
-            Uint32 r_sum = 0, g_sum = 0, b_sum = 0;
-            for (int x1 = x+4; x1 <= x+7; x1++)
-            {
-              Uint32 pixel = sdl_get_pixel(right_image, x1, y);
-              Uint8 r, g, b;
-              SDL_GetRGB (pixel, right_image->format, &r, &g, &b);
-              r_sum += r;
-              g_sum += g;
-              b_sum += b;
-            }
-
-            Uint8 r_new, g_new, b_new;
-            r_new = (Uint8)(r_sum / 4);
-            g_new = (Uint8)(g_sum / 4);
-            b_new = (Uint8)(b_sum / 4);
-            Uint32 pixel_new = SDL_MapRGB(  right_image->format,
-                                            r_new,
-                                            g_new,
-                                            b_new );
-            sdl_put_pixel (right_image, x, y, pixel_new ); */
           }
         }
       }
@@ -484,75 +438,19 @@ struct vlc_sdl_ctx
   SDL_Surface *surf;
   SDL_mutex *mutex;
 
-#ifdef USE_LIBVLC
-  libvlc_instance_t *libvlc;
-  libvlc_media_t *m;
-  libvlc_media_player_t *mp;
-#endif
 
-  int frame_start_time;
-  int frame_current_time;
-  int frame_count ;
+  //int frame_start_time;
+  //int frame_current_time;
+  //int frame_count ;
 };
 
-#ifdef USE_LIBVLC
-static void *lock(void *data, void **p_pixels)
-{
-  struct vlc_sdl_ctx *ctx = (struct vlc_sdl_ctx*)data;
 
-  SDL_LockMutex(ctx->mutex);
-  SDL_LockSurface(ctx->surf);
-  *p_pixels = ctx->surf->pixels;
 
-  return NULL; /* picture identifier, not needed here */
-}
-
-static void unlock(void *data, void *id, void *const *p_pixels)
-{
-  struct vlc_sdl_ctx *ctx = (struct vlc_sdl_ctx*)data;
-
-  SDL_UnlockSurface(ctx->surf);
-  SDL_UnlockMutex(ctx->mutex);
-
-  assert(id == NULL); /* picture identifier, not needed here */
-}
-
-static void display(void *data, void *id)
-{
-  /* VLC wants to display the video */
-  (void) data;
-  assert(id == NULL);
-}
-#endif
-/* end libVLC */
-
-/******************** OpenGL related functions ********************************/
-/**
- * Initializes Core OpenGL Features.
- */
-bool opengl_init(user_params &p)
-{
-  glEnable( GL_TEXTURE_2D );
-
-  glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
-  glViewport( 0, 0, p.screen_width, p.screen_height);
-
-  glClear( GL_COLOR_BUFFER_BIT );
-
-  glMatrixMode( GL_PROJECTION );
-  glLoadIdentity();
-
-  glOrtho(0.0f, p.screen_width, p.screen_height, 0.0f, -1.0f, 1.0f);
-
-  glMatrixMode( GL_MODELVIEW );
-  glLoadIdentity();
-  return true;
-}
 
 /*
  * Initializes SDL, OpenGL and video window.
  */
-bool init(user_params &p, vlc_sdl_ctx &ctx)
+bool init(user_params &p)
 {
   Uint32 rmask, gmask, bmask, amask;
 
@@ -560,70 +458,17 @@ bool init(user_params &p, vlc_sdl_ctx &ctx)
   if( SDL_Init(SDL_INIT_EVERYTHING) < 0 )
     return false;
 
-  if (SDL_SetVideoMode( p.screen_width,
-                        p.screen_height,
-                        p.screen_bpp,
-                        /* SDL_FULLSCREEN | */ SDL_OPENGL) == NULL )
-    return false;
-
-  SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 ); // *new*
-
-  if( opengl_init(p) == false )
-    return false;
-
-  SDL_WM_SetCaption("DIBR player -- Guassian Filter", NULL);
 
   /* ctx initialization */
-  ctx.mutex = SDL_CreateMutex();
 
   sdl_get_pixel_mask(rmask, gmask, bmask, amask);
-  ctx.surf  = SDL_CreateRGBSurface( SDL_SWSURFACE,
-                                    p.screen_width,
-                                    p.screen_height,
-                                    32,
-                                    rmask,
-                                    gmask,
-                                    bmask,
-                                    0 );
-
-#ifdef USE_LIBVLC
-  /* Initialize libVLC    */
-  char const *vlc_argv[] =
-  {
-    "--no-audio", /* skip any audio track */
-    "--no-xlib"
-  };
-  int vlc_argc = sizeof(vlc_argv) / sizeof(*vlc_argv);
-  ctx.libvlc = libvlc_new(vlc_argc, vlc_argv);
-  printf ("%s\n", p.file_path);
-  ctx.m = libvlc_media_new_path(ctx.libvlc, p.file_path);
-  ctx.mp = libvlc_media_player_new_from_media(ctx.m);
-  libvlc_media_release(ctx.m);
-
-  libvlc_video_set_callbacks(ctx.mp, lock, unlock, display, &ctx);
-  libvlc_video_set_format( ctx.mp,
-                           "RGBA",
-                           p.screen_width,
-                           p.screen_height,
-                           p.screen_width*4 );
-#endif
 
   return true;
 }
 
 /* Removes objects before closes */
-void clean_up(vlc_sdl_ctx &ctx)
+void clean_up()
 {
-#ifdef USE_LIBVLC
-  /* Stop stream and clean up libVLC */
-  libvlc_media_player_stop(ctx.mp);
-  libvlc_media_player_release(ctx.mp);
-  libvlc_release(ctx.libvlc);
-#endif
-
-  /* Close window and clean up libSDL */
-  SDL_DestroyMutex(ctx.mutex);
-  SDL_FreeSurface(ctx.surf);
 
   /* Stop SDL */
   SDL_Quit();
@@ -653,7 +498,7 @@ void set_default_params(user_params &p)
 
 int main(int argc, char* argv[])
 {
-  user_params p;
+  user_params p, p2;
   struct vlc_sdl_ctx ctx;
 
   bool quit = false;
@@ -671,9 +516,14 @@ int main(int argc, char* argv[])
       return EXIT_FAILURE;
   }
 
+  if(argc >2)
+    p2.file_path = argv[2];
+  else
+    p2.file_path = "stereo.bmp";
+
   p.file_path = argv[1]; // path to video/image.
 
-  if(init(p, ctx) == false)
+  if(init(p) == false)
     return 1;
 
   if ( ( SDL_EnableKeyRepeat( 100, SDL_DEFAULT_REPEAT_INTERVAL ) ) )
@@ -682,11 +532,7 @@ int main(int argc, char* argv[])
              SDL_GetError( ) );
     exit( 1 );
   }
-#ifdef USE_LIBVLC
-  SDL_Surface *image = ctx.surf;
-#else
   SDL_Surface *image = IMG_Load(p.file_path);
-#endif
 
   // SDL_Surface *image_2 = IMG_Load("samples/images/stilllife.jpg");
   SDL_Surface *image_all = sdl_create_RGB_surface(image, image->w, image->h*2 );
@@ -719,11 +565,6 @@ int main(int argc, char* argv[])
   SDL_Surface *right_color = sdl_create_RGB_surface( image_color, image_color->w, image_color->h);
   SDL_Surface *stereo_color = sdl_create_RGB_surface( image_color, image->w, image->h/2);
 
-  GLuint TextureID = 0;
-  /* Generate the openGL textures */
-  glEnable( GL_TEXTURE_2D );
-  glGenTextures(1, &TextureID);
-  glBindTexture(GL_TEXTURE_2D, TextureID);
 
   int Mode = GL_RGB;
   if(image->format->BytesPerPixel == 4)
@@ -731,10 +572,7 @@ int main(int argc, char* argv[])
 
   calc_gaussian_kernel(p.sigmax, p.sigmay);
 
-#ifdef USE_LIBVLC
-  libvlc_media_player_play(ctx.mp);
-#endif
-  ctx.frame_count = 0;
+//  ctx.frame_count = 0;
 
   // allocate mask matrix
   int cols = image_color->w;
@@ -749,9 +587,7 @@ int main(int argc, char* argv[])
 
 
   /****** Main Loop ******/
-  while(quit == false)
-  {
-    SDL_LockMutex(ctx.mutex);
+//    SDL_LockMutex(ctx.mutex);
     sdl_crop_surface( image, image_color, 0, 0, image->w/2, image->h/2);
     sdl_crop_surface( image, depth_frame, image->w/2, 0, image->w/2, image->h/2);
     sdl_crop_surface( image, occlusion_color_frame, 0, image->h/2, image->w/2, image->h/2);
@@ -767,7 +603,7 @@ int main(int argc, char* argv[])
                       0,
                       image->w/2,
                       image->h );
-    SDL_UnlockMutex(ctx.mutex);
+  //  SDL_UnlockMutex(ctx.mutex);
 
     // Generate stereo image
     // FCI depth_frame_filtered
@@ -821,109 +657,13 @@ int main(int argc, char* argv[])
     SDL_BlitSurface (depth_frame_filtered, NULL, image_all, &dest);
 
     SDL_Surface *surface_to_display = stereo_color;
-    if (p.show_all)
-      surface_to_display = image_all;
-
-    glTexImage2D( GL_TEXTURE_2D,
-                  0, Mode,
-                  surface_to_display->w, surface_to_display->h, 0,
-                  Mode, GL_UNSIGNED_BYTE, surface_to_display->pixels);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    /****** Get Most Current Time ******/
-    ctx.frame_start_time = SDL_GetTicks();
-
-    /****** Draw Rectangle ******/
-    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-    // Bind the texture to which subsequent calls refer to
-    glBindTexture( GL_TEXTURE_2D, TextureID);
-      glBegin( GL_QUADS );
-      //Bottom-left vertex (corner)
-      glTexCoord2i( 0, 0 );
-      glVertex3f( 0.f, 0.f, 0.0f );
-      //Bottom-right vertex (corner)
-      glTexCoord2i( 1, 0 );
-      glVertex3f( p.screen_width, 0.f, 0.f );
-      //Top-right vertex (corner)
-      glTexCoord2i( 1, 1 );
-      glVertex3f( p.screen_width, p.screen_height, 0.f );
-      //Top-left vertex (corner)
-      glTexCoord2i( 0, 1 );
-      glVertex3f( 0.f, p.screen_height, 0.f );
-    glEnd();
-
-    /****** Check for Key & System input ******/
-    while(SDL_PollEvent(&event))
-    {
-      /******  Application Quit Event ******/
-      switch (event.type)
-      {
-        case SDL_KEYDOWN:
-          if(event.key.keysym.sym == 27)
-            quit = true;
-          else if(event.key.keysym.sym == '=')
-            p.eye_sep++;
-          else if(event.key.keysym.sym == '-')
-            p.eye_sep--;
-          else if(event.key.keysym.sym == 'h')
-          {
-            p.hole_filling = !p.hole_filling;
-            printf ("Hole filling: %d.\n", p.hole_filling);
-          }
-          else if(event.key.keysym.sym == 'f')
-          {
-            p.depth_filter = !p.depth_filter;     // filter toggle FCI****
-            printf ("Depth filter: %d.\n", p.depth_filter);
-          }
-          else if(event.key.keysym.sym == SDLK_SPACE)
-          {
-            p.paused = !p.paused;
-#ifdef USE_LIBVLC
-            libvlc_media_player_set_pause(ctx.mp, p.paused);
-#endif
-          }
-          else if(event.key.keysym.sym == 'a')
-          {
-            p.show_all = !p.show_all;
-            printf ("Show reference frames: %d.\n", p.show_all);
-          }
-          else if(event.key.keysym.sym == 'o')
-          {
-            p.enable_occlusion_layer = !p.enable_occlusion_layer;
-            printf ("Occlusion Layer: %d.\n", p.enable_occlusion_layer);
-          }
-          else if(event.key.keysym.sym == 'g')
-          {
-            p.enable_ghost = !p.enable_ghost;
-            printf ("Enable ghost: %d.\n", p.enable_ghost);
-          }
-          else if(event.key.keysym.sym == 's')
-          {
-            p.enable_splat = !p.enable_splat;
-            printf ("Enable splat: %d.\n", p.enable_ghost);
-          }
-
-          break;
-      }
-    }
-
-    /****** Update Screen And Frame Counts ******/
     SDL_GL_SwapBuffers();
-    ctx.frame_count++;
-    ctx.frame_current_time = SDL_GetTicks();
 
-    /****** Frame Rate Handle ******/
-    if((ctx.frame_current_time - ctx.frame_start_time) < (1000/60))
-    {
-      ctx.frame_count = 0;
-      SDL_Delay((1000/60) - (ctx.frame_current_time - ctx.frame_start_time));
-    }
-  }
+
+  SDL_SaveBMP(stereo_color, p2.file_path);
 
   // Clean up everything
-  clean_up(ctx);
+  clean_up();
 
   return 0;
 }
