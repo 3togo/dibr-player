@@ -353,6 +353,7 @@ public:
     cl_int clErr;
     cl_uint numPlatforms;
     clErr = clGetPlatformIDs(0, NULL, &numPlatforms);
+    cout << "clErr=" << clErr << endl;
 
     if( 0 < numPlatforms )
     {
@@ -533,7 +534,8 @@ public:
     CHECK_OPENCL_ERROR(status, "clCreateContext failed");
 
     // create queue for devices
-    queue = clCreateCommandQueue(context,devices[0],0,&status);
+    //queue = clCreateCommandQueue(context,devices[0],0,&status);
+    queue = clCreateCommandQueueWithProperties(context,devices[0],0,&status);
     CHECK_OPENCL_ERROR(status, "clCreateCommandQueue failed");
 
     return SUCCESS;

@@ -187,7 +187,14 @@ int main(int argc,char *argv[])
   }
 
   inputVideo >> image;
-
+  cout << "!size inputVideo=" << sizeof(inputVideo) << endl;
+  cout << "!size image=" << sizeof(image) << endl;
+  //imshow("image", image);
+  //while (1){      
+    //int key = cvWaitKey(1);
+    //if(!handle_key(key)) // It will return false if key is ESC
+        //break;
+    //}
 //  int ex = static_cast<int>(inputVideo.get(CV_CAP_PROP_FOURCC));
 
 //  VideoWriter outputVideo;
@@ -319,6 +326,16 @@ int main(int argc,char *argv[])
         // resize(image, tmp_image, cvSize(width, height), 0, 0, CV_INTER_CUBIC);
 #else
         inputVideo >> image;
+        cout << "size inputVideo=" << sizeof(inputVideo) << endl;
+        cout << "****size image=" << sizeof(image) << endl;
+        
+        //imshow("image", image);
+    //while (1){      
+        //int key = cvWaitKey(1);
+        //if(!handle_key(key)) // It will return false if key is ESC
+        //break;
+    //}
+        
 #endif
       }
 
@@ -328,6 +345,13 @@ int main(int argc,char *argv[])
 //      cout << (float)diff << "\t";
 
 //      gettimeofday(&now, NULL);
+
+        printf("image :%d x %d\n",image.size().width,image.size().height);
+        printf("input :%d x %d\n",input.size().width,input.size().height);
+        printf("image :%d x %d\n",image.rows,image.cols);
+        printf("input :%d x %d\n",input.rows,input.cols);
+        
+        puts("????"); 
       resize(image, input, input.size(), 0, 0, INTER_NEAREST);
 //      gettimeofday(&end, NULL);
 //      diff = timeval_subtract(&result, &end, &now);
