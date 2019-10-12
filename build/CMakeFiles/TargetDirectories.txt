@@ -1,4 +1,0 @@
-/home/jc/git/dibr-player/build/CMakeFiles/rebuild_cache.dir
-/home/jc/git/dibr-player/build/CMakeFiles/edit_cache.dir
-/home/jc/git/dibr-player/build/CMakeFiles/dibr-player-cpu.dir
-/home/jc/git/dibr-player/build/CMakeFiles/dibr-player-opencl.dir

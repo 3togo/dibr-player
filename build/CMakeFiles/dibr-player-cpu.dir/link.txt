@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/dibr-player-cpu.dir/cpu/dibr-player.cc.o  -o dibr-player-cpu /usr/lib/x86_64-linux-gnu/libboost_program_options.a -lSDL -lGL -lvlc 

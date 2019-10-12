@@ -64,8 +64,8 @@ void sdl_get_pixel_mask( Uint32 &rmask,
 
 SDL_Surface* sdl_crop_surface( SDL_Surface* orig,
                            SDL_Surface* dest,
-                           short int x, short int y,
-                           short unsigned int width, short unsigned int height )
+                           int x, int y,
+                           unsigned int width, unsigned int height )
 {
   SDL_Rect rect = {x, y, width, height};
   SDL_BlitSurface(orig, &rect, dest, 0);

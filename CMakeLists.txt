@@ -12,12 +12,13 @@ find_package (LibMagic REQUIRED)
 find_package (LIBVLC REQUIRED)
 find_package (SDL REQUIRED)
 
-add_executable (dibr-player-cpu 
+add_executable (dibr-player-cpu
                 cpu/dibr-player.cc)
 
 target_link_libraries (dibr-player-cpu
                        ${Boost_LIBRARIES}
                        SDL
+                       SDL_image
                        GL
                        vlc )
 

@@ -1,4 +1,4 @@
 *.o
 dibr-player
-build/*
+**/build/*
 **/temp/
