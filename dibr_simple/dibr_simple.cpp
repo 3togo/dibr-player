@@ -21,14 +21,27 @@ struct image
   int on;
 };
 
+image** create_image_array(int height, int width) {
+    image** image_in;
+     image_in = new image*[height];
+        for (int i=0; i < height; i++) {
+            image_in[i] = new image[width];
+    }
+    return image_in;
+}
 
-void get_depth();
+int get_depth(const char *fname_d);
 void depth_section();
 void shift();
+#include <vector>
+int rows=4096;
+int cols=4096;
+//std::vector<std::vector<image> > image_in(rows, std::vector<image>(cols));
+//std::vector<std::vector<image> > image_shift(rows, std::vector<image>(cols));
 
-
+//image** image_in =create_image_array(4096, 4096);
 image image_in[4096][4096];
-image image_shift[4096][4096];  // every set has R,G,B  example image[0][0].R, image[0][0].G, image[0][0].B;
+image image_shift[4096][4096];  // every set has R,G,B  example image[0][0].R, image[0][0].G, image[0][0].B;//
 image image_size;
 
 
@@ -36,14 +49,43 @@ char ch = '\0', depth = '\0';
 unsigned int  width = 0, height = 0;   // image width, image height
 int dep_max = 0 ,dep_min = 0;
 
+unsigned char* read_raw(const char *fname_s, unsigned int& rgb_raw_data_offset ) {
+    FILE          *fp_s = NULL;    // source file handler
+    unsigned char *image_s = NULL; // source image array
+
+    fp_s = fopen(fname_s, "rb");   // source file handler
+    if (fp_s == NULL) {
+        printf("fname_s=%s\n", fname_s);
+        perror("fopen fp_s error\n");
+      return NULL;
+    }
+
+    // move offset to 10 to find rgb raw data offset
+    fseek(fp_s, 10, SEEK_SET);
+    fread(&rgb_raw_data_offset, sizeof(unsigned int), 1, fp_s);
+    // move offset to 18    to get width & height;
+    fseek(fp_s, 18, SEEK_SET);
+    fread(&width,  sizeof(unsigned int), 1, fp_s);
+    fread(&height, sizeof(unsigned int), 1, fp_s);
+    // move offset to rgb_raw_data_offset to get RGB raw data
+    fseek(fp_s, rgb_raw_data_offset, SEEK_SET);
+
+
+    image_s = (unsigned char *)malloc((size_t)width * height * 3);   //array
+    if (image_s == NULL) {
+      printf("malloc images_s error\n");
+      return NULL;
+    }
+    fread(image_s, sizeof(unsigned char), (size_t)(long)width * height * 3, fp_s);
+    fclose(fp_s);
+    return image_s;
+}
 
 int get_raw(const char *fname_s, const char *fname_t) {
-    FILE          *fp_s = NULL;    // source file handler
     FILE          *fp_t = NULL;    // target file handler
     unsigned int  x=0,y=0;             // for loop counter
 
 
-    unsigned char *image_s = NULL; // source image array
     unsigned char *image_t = NULL; // target image array
     unsigned char R = '\0', G = '\0', B ='\0';         // color of R, G, B
     unsigned int y_avg=0;            // average of y axle
@@ -75,32 +117,9 @@ int get_raw(const char *fname_s, const char *fname_t) {
     unsigned int rgb_raw_data_offset = 0; // RGB raw data offset
 
 
-    fp_s = fopen(fname_s, "rb");   // source file handler
-    if (fp_s == NULL) {
-        printf("fname_s=%s\n", fname_s);
-        perror("fopen fp_s error\n");
-      return -1;
-    }
 
 
-    // move offset to 10 to find rgb raw data offset
-    fseek(fp_s, 10, SEEK_SET);
-    fread(&rgb_raw_data_offset, sizeof(unsigned int), 1, fp_s);
-    // move offset to 18    to get width & height;
-    fseek(fp_s, 18, SEEK_SET);
-    fread(&width,  sizeof(unsigned int), 1, fp_s);
-    fread(&height, sizeof(unsigned int), 1, fp_s);
-    // move offset to rgb_raw_data_offset to get RGB raw data
-    fseek(fp_s, rgb_raw_data_offset, SEEK_SET);
-
-
-    image_s = (unsigned char *)malloc((size_t)width * height * 3);   //array
-    if (image_s == NULL) {
-      printf("malloc images_s error\n");
-      return -1;
-    }
-
-
+    unsigned char* image_s = read_raw( fname_s, rgb_raw_data_offset);
     image_t = (unsigned char *)malloc((size_t)width * height * 3);   //array
     if (image_t == NULL) {
       printf("malloc image_t error\n");
@@ -108,16 +127,17 @@ int get_raw(const char *fname_s, const char *fname_t) {
     }
 
 
-    fread(image_s, sizeof(unsigned char), (size_t)(long)width * height * 3, fp_s);
     /* 以上為處理檔頭的前置作業*/
     y_avg = 0 + (height-1);
 
 
     for(y = 0; y != width; ++y) {
       for(x = 0; x != height; ++x) {
-         image_in[x][y].R = *(image_s + 3 * (width * x + y) + 2);
-         image_in[x][y].G = *(image_s + 3 * (width * x + y) + 1);
-         image_in[x][y].B = *(image_s + 3 * (width * x + y) + 0);
+          int idx = width * x + y;
+          int idx2 = 3 * idx;
+         image_in[x][y].R = *(image_s + idx2 + 2);
+         image_in[x][y].G = *(image_s + idx2 + 1);
+         image_in[x][y].B = *(image_s + idx2 + 0);
       }
     }
 
@@ -127,9 +147,11 @@ int get_raw(const char *fname_s, const char *fname_t) {
 
     for(y = 0; y != width; ++y) {
       for(x = 0; x != height; ++x) {
-        *(image_t + 3 * (width * x + y) + 2) = image_shift[x][y].R;
-        *(image_t + 3 * (width * x + y) + 1) = image_shift[x][y].G;
-        *(image_t + 3 * (width * x + y) + 0) = image_shift[x][y].B;
+          int idx = width * x + y;
+          int idx2 = 3 * idx;
+        *(image_t + idx2 + 2) = image_shift[x][y].R;
+        *(image_t + idx2 + 1) = image_shift[x][y].G;
+        *(image_t + idx2 + 0) = image_shift[x][y].B;
       }
     }
 
@@ -176,7 +198,6 @@ int get_raw(const char *fname_s, const char *fname_t) {
      free(image_t);
 
 
-     fclose(fp_s);
      fclose(fp_t);
 
 
@@ -222,9 +243,11 @@ int get_depth(const char *fname_d)
 
      for(y = 0; y != width; ++y) {
          for(x = 0; x != height; ++x) {
-             dep_r = *(image_d + 3 * (width * x + y) + 2);
-             dep_g = *(image_d + 3 * (width * x + y) + 1);
-             dep_g = *(image_d + 3 * (width * x + y) + 0);
+             int idx = width * x + y;
+            int idx2 = 3 * idx;
+             dep_r = *(image_d + idx2 + 2);
+             dep_g = *(image_d + idx2 + 1);
+             dep_g = *(image_d + idx2 + 0);
              image_in[x][y].depth = (dep_r + dep_g + dep_b)/3;
              if(image_in[x][y].depth > dep_max)
         dep_max = image_in[x][y].depth;
@@ -236,6 +259,7 @@ int get_depth(const char *fname_d)
     }
     fclose(fp_d);
     free(image_d);
+    return 0;
 }
 
 
@@ -421,8 +445,8 @@ int totalNumbers=1;
 
     for(int Number=1; Number<=totalNumbers; Number++)
     {
-        sprintf(Dep, "images/%ddep.bmp", Number);
-        sprintf(FileName, "images/%d.bmp", Number);
+        sprintf(Dep, "../images/%ddep.bmp", Number);
+        sprintf(FileName, "../images/%d.bmp", Number);
         sprintf(OutName, "%d_l2.bmp", Number);
         get_depth(Dep);
         get_raw(FileName, OutName);
