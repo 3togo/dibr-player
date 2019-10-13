@@ -81,18 +81,8 @@ unsigned char* read_raw(const char *fname_s, unsigned int& rgb_raw_data_offset )
     return image_s;
 }
 
-int get_raw(const char *fname_s, const char *fname_t) {
-    FILE          *fp_t = NULL;    // target file handler
-    unsigned int  x=0,y=0;             // for loop counter
-
-
-    unsigned char *image_t = NULL; // target image array
-    unsigned char R = '\0', G = '\0', B ='\0';         // color of R, G, B
-    unsigned int y_avg=0;            // average of y axle
-    unsigned int y_t=0;              // target of y axle
-
-
-    unsigned char header[54] = {
+unsigned char* gen_header(int height, int width, int file_size) {
+    static unsigned char header[54] = {
       0x42,        // identity : B
       0x4d,        // identity : M
       0, 0, 0, 0,  // file size
@@ -112,11 +102,42 @@ int get_raw(const char *fname_s, const char *fname_t) {
       0, 0, 0, 0   // important colors
     };
 
+     header[2] = (unsigned char)(file_size & 0x000000ff);
+     header[3] = (file_size >> 8)  & 0x000000ff;
+     header[4] = (file_size >> 16) & 0x000000ff;
+     header[5] = (file_size >> 24) & 0x000000ff;
+
+
+     // width
+     header[18] = width & 0x000000ff;
+     header[19] = (width >> 8)  & 0x000000ff;
+     header[20] = (width >> 16) & 0x000000ff;
+     header[21] = (width >> 24) & 0x000000ff;
+
+
+     // height
+     header[22] = height &0x000000ff;
+     header[23] = (height >> 8)  & 0x000000ff;
+     header[24] = (height >> 16) & 0x000000ff;
+     header[25] = (height >> 24) & 0x000000ff;
+
+    return header;
+}
+
+int get_raw(const char *fname_s, const char *fname_t) {
+    FILE          *fp_t = NULL;    // target file handler
+    unsigned int  x=0,y=0;             // for loop counter
+
+
+    unsigned char *image_t = NULL; // target image array
+    unsigned char R = '\0', G = '\0', B ='\0';         // color of R, G, B
+    unsigned int y_avg=0;            // average of y axle
+    unsigned int y_t=0;              // target of y axle
+
+
 
     unsigned int file_size = 0;           // file size
     unsigned int rgb_raw_data_offset = 0; // RGB raw data offset
-
-
 
 
     unsigned char* image_s = read_raw( fname_s, rgb_raw_data_offset);
@@ -167,26 +188,7 @@ int get_raw(const char *fname_s, const char *fname_t) {
 
      // file size
      file_size = width * height * 3 + rgb_raw_data_offset;
-     header[2] = (unsigned char)(file_size & 0x000000ff);
-     header[3] = (file_size >> 8)  & 0x000000ff;
-     header[4] = (file_size >> 16) & 0x000000ff;
-     header[5] = (file_size >> 24) & 0x000000ff;
-
-
-     // width
-     header[18] = width & 0x000000ff;
-     header[19] = (width >> 8)  & 0x000000ff;
-     header[20] = (width >> 16) & 0x000000ff;
-     header[21] = (width >> 24) & 0x000000ff;
-
-
-     // height
-     header[22] = height &0x000000ff;
-     header[23] = (height >> 8)  & 0x000000ff;
-     header[24] = (height >> 16) & 0x000000ff;
-     header[25] = (height >> 24) & 0x000000ff;
-
-
+     unsigned char* header = gen_header(height, width, file_size);
      // write header
      fwrite(header, sizeof(unsigned char), rgb_raw_data_offset, fp_t);
      // write image
