@@ -3,10 +3,11 @@
 #include <fstream>
 #include <vector>
 #include <math.h>
-#define Width 576
-#define Height 720
-using namespace std;
 
+#define MAX_ROWS 4096
+#define MAX_COLS 4096
+
+using namespace std;
 
 struct image
 {
@@ -21,10 +22,10 @@ struct image
   int on;
 };
 
-image** create_image_array(int height, int width) {
+image** create_image_array(unsigned int height, unsigned int width) {
     image** image_in;
      image_in = new image*[height];
-        for (int i=0; i < height; i++) {
+        for(unsigned int i = 0; i < height; i++) {
             image_in[i] = new image[width];
     }
     return image_in;
@@ -33,19 +34,11 @@ image** create_image_array(int height, int width) {
 int get_depth(const char *fname_d);
 void depth_section();
 void shift();
-#include <vector>
-int rows=4096;
-int cols=4096;
-//std::vector<std::vector<image> > image_in(rows, std::vector<image>(cols));
-//std::vector<std::vector<image> > image_shift(rows, std::vector<image>(cols));
 
-//image** image_in =create_image_array(4096, 4096);
-image image_in[4096][4096];
-image image_shift[4096][4096];  // every set has R,G,B  example image[0][0].R, image[0][0].G, image[0][0].B;//
+image image_in[MAX_ROWS][MAX_COLS];
+image image_shift[MAX_ROWS][MAX_COLS];  // every set has R,G,B  example image[0][0].R, image[0][0].G, image[0][0].B;//
 image image_size;
 
-
-char ch = '\0', depth = '\0';
 unsigned int  width = 0, height = 0;   // image width, image height
 int dep_max = 0 ,dep_min = 0;
 
@@ -124,55 +117,45 @@ unsigned char* gen_header(int height, int width, int file_size) {
     return header;
 }
 
+void load_image_in(const char *fname_s, unsigned int& rgb_raw_data_offset )
+{
+    unsigned char* image_s = read_raw(fname_s, rgb_raw_data_offset);
+    for(unsigned int j = 0; j < width; j++) {
+      for(unsigned int i = 0; i < height; i++) {
+          int idx = width * i + j;
+          int idx2 = 3 * idx;
+         image_in[i][j].R = *(image_s + idx2 + 2);
+         image_in[i][j].G = *(image_s + idx2 + 1);
+         image_in[i][j].B = *(image_s + idx2 + 0);
+      }
+    }
+    free(image_s);
+
+
+}
+
 int get_raw(const char *fname_s, const char *fname_t) {
     FILE          *fp_t = NULL;    // target file handler
-    unsigned int  x=0,y=0;             // for loop counter
-
-
     unsigned char *image_t = NULL; // target image array
-    unsigned char R = '\0', G = '\0', B ='\0';         // color of R, G, B
-    unsigned int y_avg=0;            // average of y axle
-    unsigned int y_t=0;              // target of y axle
-
-
-
     unsigned int file_size = 0;           // file size
     unsigned int rgb_raw_data_offset = 0; // RGB raw data offset
 
-
-    unsigned char* image_s = read_raw( fname_s, rgb_raw_data_offset);
     image_t = (unsigned char *)malloc((size_t)width * height * 3);   //array
     if (image_t == NULL) {
       printf("malloc image_t error\n");
       return -1;
     }
-
-
-    /* 以上為處理檔頭的前置作業*/
-    y_avg = 0 + (height-1);
-
-
-    for(y = 0; y != width; ++y) {
-      for(x = 0; x != height; ++x) {
-          int idx = width * x + y;
-          int idx2 = 3 * idx;
-         image_in[x][y].R = *(image_s + idx2 + 2);
-         image_in[x][y].G = *(image_s + idx2 + 1);
-         image_in[x][y].B = *(image_s + idx2 + 0);
-      }
-    }
-
+    load_image_in(fname_s, rgb_raw_data_offset);
     depth_section();
     shift();
 
-
-    for(y = 0; y != width; ++y) {
-      for(x = 0; x != height; ++x) {
-          int idx = width * x + y;
+    for(unsigned int j = 0; j < width; j++) {
+      for(unsigned int i = 0; i < height; i++) {
+          int idx = width * i + j;
           int idx2 = 3 * idx;
-        *(image_t + idx2 + 2) = image_shift[x][y].R;
-        *(image_t + idx2 + 1) = image_shift[x][y].G;
-        *(image_t + idx2 + 0) = image_shift[x][y].B;
+        *(image_t + idx2 + 2) = image_shift[i][j].R;
+        *(image_t + idx2 + 1) = image_shift[i][j].G;
+        *(image_t + idx2 + 0) = image_shift[i][j].B;
       }
     }
 
@@ -193,16 +176,8 @@ int get_raw(const char *fname_s, const char *fname_t) {
      fwrite(header, sizeof(unsigned char), rgb_raw_data_offset, fp_t);
      // write image
      fwrite(image_t, sizeof(unsigned char), (size_t)(long)width * height * 3, fp_t);
-
-
-     free(image_s);
-
      free(image_t);
-
-
      fclose(fp_t);
-
-
      return 0;
 }
 
@@ -212,9 +187,6 @@ int get_depth(const char *fname_d)
      FILE          *fp_d = NULL;    // depth file handler
      unsigned char *image_d = NULL;   //depth image array
      unsigned int depth_raw_data_offset;
-     int x=0;
-     int y=0;
-     int i=0;
      float dep_r=0, dep_g=0, dep_b=0;
      dep_max =-128;
      dep_min =127;
@@ -243,8 +215,8 @@ int get_depth(const char *fname_d)
 
      fread(image_d, sizeof(unsigned char), (size_t)(long)width * height * 3, fp_d);
 
-     for(y = 0; y != width; ++y) {
-         for(x = 0; x != height; ++x) {
+     for(unsigned int y = 0; y != width; ++y) {
+         for(unsigned int x = 0; x != height; ++x) {
              int idx = width * x + y;
             int idx2 = 3 * idx;
              dep_r = *(image_d + idx2 + 2);
@@ -255,106 +227,60 @@ int get_depth(const char *fname_d)
         dep_max = image_in[x][y].depth;
          else if(image_in[x][y].depth < dep_min)
                 dep_min = image_in[x][y].depth;
-             //image_in[x][y].G = G;
-             //image_in[x][y].B = B;
-        }
+              }
     }
     fclose(fp_d);
     free(image_d);
     return 0;
 }
 
-
-
 void depth_section()
 {
     int section;
-    int divide;
     section = (dep_max - dep_min + 1) / 8;
     printf("%d\n", section);
-    for(int i=0; i!=height; ++i)
-    {
-       for(int j=0; j!=width; ++j)
-       {
+    for(unsigned int i=0; i!=height; ++i) {
+        for(unsigned int j=0; j!=width; ++j) {
           //--------------------shift-8-------------------------------------------
-          if(image_in[i][j].depth<= dep_min + section)  //dep_min + section
-          {
-            image_in[i][j].shift_num = 1;  // (-128~-97)
-            image_in[i][j].priority = 1;   //closest 1st
-          }
-          else if(image_in[i][j].depth<= dep_min + 2*section)
-          {
-            image_in[i][j].shift_num = 2;  //
-            image_in[i][j].priority = 2;   //2nd
-          }
-          else if(image_in[i][j].depth<= dep_min + 3*section)
-          {
-            image_in[i][j].shift_num = 3;
-            image_in[i][j].priority = 3;   //3rd
-          }
-          else if(image_in[i][j].depth<= dep_min + 4*section)
-          {
-            image_in[i][j].shift_num = 4;
-            image_in[i][j].priority = 4;   //4rd
-          }
-          else if(image_in[i][j].depth<= dep_min + 5*section)
-          {
-            image_in[i][j].shift_num = 5;
-            image_in[i][j].priority = 5;   //5rd
-          }
-          else if(image_in[i][j].depth<= dep_min + 6*section)
-          {
-            image_in[i][j].shift_num = 6;  //
-            image_in[i][j].priority = 6;   //6rd
-          }
-          else if(image_in[i][j].depth<= dep_min + 7*section)
-          {
-            image_in[i][j].shift_num = 7;  // (64~95)
-            image_in[i][j].priority = 7;   //7rd
-          }
-          else if(image_in[i][j].depth<= dep_min + 8*section)
-          {
-            image_in[i][j].shift_num = 8;  // (96~127)
-            image_in[i][j].priority = 8;   //8th
-          }
-      }
+            if (image_in[i][j].depth > dep_min)
+                continue;
+            int shift_num = int((dep_min - image_in[i][j].depth)/section+0.5);
+              image_in[i][j].shift_num = shift_num;
+              image_in[i][j].priority =  shift_num;
+
+        }
      }
 }
 
 
 void shift()   // i = row, j = column
 {
-    int pointer = 0;
-    float length = 0, counter = 0, son = 1, mom = 0;
+    //int pointer = 0;
+    //float length = 0;
+    //float counter = 0, son = 1, mom = 0;
     float temp_r_l, temp_r_r;
     float temp_g_l, temp_g_r;
     float temp_b_l, temp_b_r;
-    int save_j=0, direction=0;
-    for(int i=0 ; i<=height; i++)
-        for(int j=0; j<=(width-1); j++)  //(image_size.width-1)
+    int save_j=0;
+    //int direction=0;
+    for(unsigned int i=0 ; i<=height; i++)
+        for(unsigned int j=0; j<=(width-1); j++)  //(image_size.width-1)
         {
-            if(image_shift[i][j+image_in[i][j].shift_num].on == 0)
+            int shift=image_in[i][j].shift_num;
+            int j1 = j+shift;
+            if(image_shift[i][j1].on == 0 || (image_in[i][j].priority > image_shift[i][j1].priority))
             {
-                image_shift[i][j+image_in[i][j].shift_num].R = image_in[i][j].R;
-                image_shift[i][j+image_in[i][j].shift_num].G = image_in[i][j].G;
-                image_shift[i][j+image_in[i][j].shift_num].B = image_in[i][j].B;
-                image_shift[i][j+image_in[i][j].shift_num].on = 1;
-                image_shift[i][j+image_in[i][j].shift_num].priority = image_in[i][j].priority;
-            }else{
-                if(image_in[i][j].priority > image_shift[i][j+image_in[i][j].shift_num].priority)
-                {
-                    image_shift[i][j+image_in[i][j].shift_num].R = image_in[i][j].R;
-                    image_shift[i][j+image_in[i][j].shift_num].G = image_in[i][j].G;
-                    image_shift[i][j+image_in[i][j].shift_num].B = image_in[i][j].B;
-                    image_shift[i][j+image_in[i][j].shift_num].on = 1;
-                    image_shift[i][j+image_in[i][j].shift_num].priority = image_in[i][j].priority;
-                }
+                image_shift[i][j1].R = image_in[i][j].R;
+                image_shift[i][j1].G = image_in[i][j].G;
+                image_shift[i][j1].B = image_in[i][j].B;
+                image_shift[i][j1].on = 1;
+                image_shift[i][j1].priority = image_in[i][j].priority;
             }
         }// end of switch
 
 
-    for(int m = 0; m<Width; m++)
-        for(int n = 0; n<Height; n++)
+    for(int m = 0; m<width; m++)
+        for(int n = 0; n<height; n++)
         {
             if(image_shift[m][n].on == 0 && image_shift[m][n - 1].on == 1 && image_shift[m][n + 1].on == 1)
             {
@@ -375,8 +301,8 @@ void shift()   // i = row, j = column
         }
 
 
-  for(int i=0; i<Width; i++)
-     for(int j=0; j<Height; j++)
+  for(int i=0; i<width; i++)
+     for(int j=0; j<height; j++)
      {
         int k = 0;
         if(j == 0)
@@ -411,34 +337,33 @@ void shift()   // i = row, j = column
               temp_b_r = image_shift[i][save_j + 1].B;
            }
            save_j++;
-           counter++;
+           //counter++;
         }
 // ---------------------- intepolation filling -----------------------------------------
-        save_j = j;
-        while( image_shift[i][save_j].on == 0 )
-        {
-           mom = counter + 1;
-           for(int k = counter; k > 0; k--)
-           {
-              float test_r = 0, test_b = 0, test_g = 0;
-              test_r = ((float)son/(float)mom)*temp_r_r + ((float)(mom - son )/(float)mom)*temp_r_l;
-              image_shift[i][save_j].R = test_r;
-              test_g = ((float)son/(float)mom)*temp_g_r + ((float)(mom - son )/(float)mom)*temp_g_l;
-              image_shift[i][save_j].G = test_g;
-              test_b = ((float)son/(float)mom)*temp_b_r + ((float)(mom - son )/(float)mom)*temp_b_l;
-              image_shift[i][save_j].B = test_b;
-              son++;
-              save_j++;
-           }
-        }
-        counter = 0;
-        son = 1;
-        mom = 0;
-     }
+//interpolation_filling:
+        //save_j = j;
+        //while( image_shift[i][save_j].on == 0 )
+        //{
+           //mom = counter + 1;
+           //for(int k = counter; k > 0; k--)
+           //{
+              //float test_r = 0, test_b = 0, test_g = 0;
+              //test_r = ((float)son/(float)mom)*temp_r_r + ((float)(mom - son )/(float)mom)*temp_r_l;
+              //image_shift[i][save_j].R = test_r;
+              //test_g = ((float)son/(float)mom)*temp_g_r + ((float)(mom - son )/(float)mom)*temp_g_l;
+              //image_shift[i][save_j].G = test_g;
+              //test_b = ((float)son/(float)mom)*temp_b_r + ((float)(mom - son )/(float)mom)*temp_b_l;
+              //image_shift[i][save_j].B = test_b;
+              //son++;
+              //save_j++;
+           //}
+        //}
+        //counter = 0;
+        //son = 1;
+        //mom = 0;
+    }
+
 } // end of shift
-
-
-
 
 int main()
 {
